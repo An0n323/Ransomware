@@ -1,4 +1,4 @@
-# Ransomware Pédagogique - Projet C&C (Command & Control)
+# Projet Ransomware Mathys Maréchal
 
 Ce projet est un outil de simulation développé dans un cadre académique pour illustrer les mécanismes d'infection, d'exfiltration et de contrôle à distance d'un malware.
 
@@ -31,7 +31,17 @@ Le protocole est structuré en trois types d'échanges :
 ## 🚀 Comment lancer le projet
 1. Lancez le serveur sur votre machine de contrôle : `python3 c2_server.py`
 2. Lancez le malware sur la machine cible : `python3 malware.py`
-3. Utilisez la console C2 pour lister (`list`), exécuter (`exec`) ou déchiffrer (`decrypt`).
+
+## 🚀 Utilisation de la Console C2
+Une fois le serveur et le client lancés, les commandes suivantes sont disponibles sur le serveur :
+
+* **`list`** : Affiche la liste des UUID des machines actuellement connectées.
+* **`crypt <uuid>`** : Lance le chiffrement XOR du dossier cible sur la machine spécifiée.
+* **`decrypt <uuid>`** : Lance le déchiffrement XOR pour restaurer les fichiers.
+* **`exec <uuid> <commande>`** : Exécute une commande système (ex: `whoami`, `ls -la`) et affiche le retour.
+* **`upload <uuid> <chemin_distant>`** : Vole un fichier de la victime et l'enregistre dans `./exfiltrated_files/`.
+* **`download <uuid> <chemin_local>`** : Envoie un fichier de votre serveur vers le dossier du client.
+* **`exit`** : Ferme le serveur.
 
 ## ⚠️ Limites et Faiblesses
 * **Algorithme XOR** : Vulnérable à l'attaque par clair connu (Known Plaintext Attack). Si $A \oplus B = C$, alors $C \oplus A = B$.
